@@ -13,15 +13,16 @@ import java.lang.Math;
 public class Spiro extends Application{
 	
 	private double time = 0;
-	private double frameRate = 0.04;
+	private double frameRate = 0.025;
 	private GraphicsContext graphics;
 	
 	private int windowWidth = 500;
 	private int windowHeight = 500;
 	
-	private double r = 2.21230213;
-	private double R = 3.1524;
-	private double a = .1;
+	private boolean useLine = true;
+	private double r = -2.2123234234213;
+	private double R = 3.152234234;
+	private double a = .1324234;
 	
 	private double newX;
 	private double newY;
@@ -48,12 +49,22 @@ public class Spiro extends Application{
 		graphics = canvas.getGraphicsContext2D();
 		
 		//Timer which is called usually 60 fps
+		
 		AnimationTimer timer = new AnimationTimer() {
 			public void handle(long now) {
 				time += frameRate;
 				draw();
 			}
 		};
+		
+		/*
+		for(int i = 0; i < 10000; i++)
+		{
+			time += frameRate;
+			draw();
+		}
+		*/
+		
 		timer.start();
 		root.getChildren().add(canvas);
 		return root;
@@ -70,9 +81,15 @@ public class Spiro extends Application{
 		newY = windowHeight / 2 +  point.getY();
 		
 		//Draw it
-		if(oldX != 0 && oldY != 0)
-			graphics.strokeLine(newX, newY, oldX, oldY);
-		
+		if(oldX != 0 && oldY != 0){
+			if(useLine){
+				graphics.strokeLine(newX, newY, oldX, oldY);
+			}
+			else{
+				graphics.strokeOval(newX, newY, 3,3 );	
+			}
+		}
+	
 		oldX = newX;
 		oldY = newY;
 	}
@@ -81,7 +98,7 @@ public class Spiro extends Application{
         double x = (R+r) * Math.cos(time) - (r + a) * Math.cos(((R+r)/r)*time);
         double y = (R+r) * Math.sin(time) - (r + a) * Math.sin(((R+r)/r)*time);
         
-        return new Point2D(x,y).multiply(30);
+        return new Point2D(x,y).multiply(50);
 	}
 	
 	private Color getRandomColor() {
