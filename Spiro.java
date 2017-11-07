@@ -13,16 +13,19 @@ import java.lang.Math;
 public class Spiro extends Application{
 	
 	private double time = 0;
-	private double frameRate = 0.025;
+
 	private GraphicsContext graphics;
 	
-	private int windowWidth = 500;
-	private int windowHeight = 500;
+	private int windowWidth = 700;
+	private int windowHeight = 700;
 	
+	//Variables which can be adjusted in order to get different spirographs
 	private boolean useLine = true;
-	private double r = -2.2123234234213;
+	private double frameRate = 0.5;
+	private double r = 2.2123234234213;
 	private double R = 3.152234234;
-	private double a = .1324234;
+	private double a = 1.24234;
+	private double scale = 30;
 	
 	private double newX;
 	private double newY;
@@ -98,7 +101,7 @@ public class Spiro extends Application{
         double x = (R+r) * Math.cos(time) - (r + a) * Math.cos(((R+r)/r)*time);
         double y = (R+r) * Math.sin(time) - (r + a) * Math.sin(((R+r)/r)*time);
         
-        return new Point2D(x,y).multiply(50);
+        return new Point2D(x,y).multiply(scale);
 	}
 	
 	private Color getRandomColor() {
